@@ -1,7 +1,13 @@
 <% if @restaurants.any? %>
-  <% @restaurants.each do |restaurant| %>
-    <%= restaurant.name %>
+  <ul>
+  <% @restaurants.each do |r| %>
+    <li><%= r.name %> 
+      <!--<a href='/restaurants/<%= r.id%>/edit'>Edit <%= r.name %></a> --> 
+      <%= link_to "Edit #{r.name}", edit_restaurant_path(r.id) %>
+      <!-- http://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-link_to -->
+    </li>
   <% end %>
+  </ul>
 <% else %>
   <h1>No restaurants yet</h1>
 <% end %>
