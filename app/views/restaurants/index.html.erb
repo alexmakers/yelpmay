@@ -1,10 +1,16 @@
 <% if @restaurants.any? %>
   <ul>
-  <% @restaurants.each do |r| %>
-    <li><%= r.name %> 
-      <!--<a href='/restaurants/<%= r.id%>/edit'>Edit <%= r.name %></a> --> 
-      <%= link_to "Edit #{r.name}", edit_restaurant_path(r.id) %>
-      <!-- http://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-link_to -->
+  <% @restaurants.each do |restaurant| %>
+    <li><%= restaurant.name %> (<%= restaurant.cuisine %>)
+      <%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant.id) %>
+      <%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant.id), method: :delete, 'data-confirm' => 'Are sure you want to delete this?' %>
+      <%= link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant.id) %>
+
+      <ul>
+        <% restaurant.reviews.each do |review| %>
+          <li><%= review.thoughts %> (<%= review.rating %>)</li>
+        <% end %>
+      </ul>
     </li>
   <% end %>
   </ul>
