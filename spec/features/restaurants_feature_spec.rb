@@ -10,7 +10,7 @@ describe 'restaurants listing page' do
 
   context 'are restaurants' do
     before do
-      Restaurant.create(name: 'Ledbury')
+      Restaurant.create(name: 'Ledbury', cuisine: 'French')
     end
 
     it 'should show the restaurant' do
@@ -21,16 +21,32 @@ describe 'restaurants listing page' do
 end
 
 describe 'restaurant creation form' do
-  it 'should be able to create a restaurant' do
-    visit '/restaurants/new'
+  context 'input is valid' do
+    it 'should be able to create a restaurant' do
+      visit '/restaurants/new'
 
-    fill_in 'Name', with: 'Burger King'
-    fill_in 'Cuisine', with: 'Fast Food'
-    click_button 'Create Restaurant'
+      fill_in 'Name', with: 'Burger King'
+      fill_in 'Cuisine', with: 'Fast Food'
+      click_button 'Create Restaurant'
 
-    expect(current_path).to eq '/restaurants'
-    expect(page).to have_content 'Burger King (Fast Food)'
+      expect(current_path).to eq '/restaurants'
+      expect(page).to have_content 'Burger King (Fast Food)'
+    end
   end
+  context 'input is not valid' do
+    it 'should be able to create a restaurant' do
+      visit '/restaurants/new'
+
+      fill_in 'Name', with: 'burger king'
+      fill_in 'Cuisine', with: 'ff'
+      click_button 'Create Restaurant'
+
+      expect(current_path).to eq '/restaurants'
+      expect(page).not_to have_content 'burger king (ff)'
+      expect(page).to have_content 'has to start with a capital letter'
+    end
+  end
+
 end
 
 describe 'restaurant editing and deleting' do
