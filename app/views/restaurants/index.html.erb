@@ -1,17 +1,31 @@
 <% if @restaurants.any? %>
   <ul>
   <% @restaurants.each do |restaurant| %>
-    <li><%= restaurant.name %> (<%= restaurant.cuisine %>) <br>
-      Average rating: <%= star_rating(restaurant.average_rating) %>  <br>
+    <li class='restaurant'><%= restaurant.name %> (<%= restaurant.cuisine %>) <br>
+      Average rating: 
+
+      <span class='average_rating'>
+        <%= star_rating(restaurant.average_rating) %>
+      </span>  <br>
       <%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant.id) %>  <br>
       <%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant.id), method: :delete, 'data-confirm' => 'Are sure you want to delete this?' %>  <br>
       <%= link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant.id) %>  <br>
 
-      <ul>
+      <ul class='reviews'>
         <% restaurant.reviews.each do |review| %>
-          <li><%= review.thoughts %> (<%= review.rating %>)</li>
+          <li><%= review.thoughts %> (<%= star_rating review.rating %>)</li>
         <% end %>
       </ul>
+
+      <%= form_for [restaurant, @review] do |f| %>
+        <%= f.label :thoughts %>
+        <%= f.text_area :thoughts %>
+
+        <%= f.label :rating %>
+        <%= f.select :rating, 1..5 %>
+
+        <%= f.submit %>
+      <% end %>
     </li>
   <% end %>
   </ul>
