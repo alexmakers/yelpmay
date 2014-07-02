@@ -2,7 +2,7 @@
   <div id='error-list'>
     <h2>Errors</h2>
     <ul>
-  <% @restaurant.errors.each do |message|%>
+  <% @restaurant.errors.full_messages.each do |message|%>
       <li><%= message %></li>
   <% end%>
     </ul>
