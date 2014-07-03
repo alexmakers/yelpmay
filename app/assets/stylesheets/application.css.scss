@@ -13,3 +13,32 @@
  *= require_tree .
  *= require_self
  */
+
+$nicered: #f55;
+
+.button {
+  background: $nicered;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+body {
+  margin: 0;
+  font-family: Helvetica Neue;
+}
+
+nav {
+  background: #ccc;
+  padding: 10px;
+
+  a {
+    @extend .button;
+  }
+}
+
+.new_restaurant {
+  @extend .button;
+}

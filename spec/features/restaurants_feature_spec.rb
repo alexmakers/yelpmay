@@ -98,12 +98,5 @@ describe 'restaurant editing and deleting' do
       expect(current_path).to eq '/restaurants'
       expect(page).to have_content 'Kentucky Fried Chicken'
     end
-  
-    it 'can delete restaurants' do
-      visit '/restaurants'
-      click_link 'Delete KFC'
-      expect(page).not_to have_content 'KFC (Chicken)'
-      expect(page).to have_content 'Successfully deleted KFC'
-    end
   end
 end    
